@@ -2,11 +2,13 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 
 
 public class Options implements ActionListener {
@@ -43,6 +45,7 @@ public class Options implements ActionListener {
 	
 	private void createLayout()
 	{
+		
 		for(int i = 0; i < button.length; i++)
 		{
 			button[i] = new JButton("button " + i);
@@ -51,6 +54,7 @@ public class Options implements ActionListener {
 			button[i].addActionListener(this);
 			pane.add(button[i]);
 		}
+		
 		button[0].setText("ADD ROW");
 		button[1].setText("DELETE ROW");
 		button[2].setText("ADD COLUMN");

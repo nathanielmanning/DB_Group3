@@ -5,12 +5,14 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 
 public class Table implements ActionListener{
 	
@@ -89,19 +91,37 @@ public class Table implements ActionListener{
 	JButton options, exit;;
 	DrawingPanel panel[];
 	DrawingPanel panel2[];
+	DrawingPanel panel3[];
+	JRadioButton radioButtons[] = new JRadioButton[2];
 	
 	private JPanel createLayout()
 	{
 		pane = new JPanel();
 		panel = new DrawingPanel[this.colNum];
 		panel2 = new DrawingPanel[this.colNum];
+		panel3 = new DrawingPanel[this.colNum];
 		JPanel buttonPanel = new JPanel(new GridLayout(1,2));
+		JPanel radioButtonPanel = new JPanel(new GridLayout(1,0));
 		pane.setLayout(new GridBagLayout());
 		GridBagConstraints con = new GridBagConstraints();
 		pane.setBackground(Color.CYAN);
 		con.gridx = colNum-1;
 		con.gridy = 0;
 		
+		for(int j = 0; j < radioButtons.length; j++)
+		{
+			radioButtons[j] = new JRadioButton("button " + j);
+			radioButtons[j].setMnemonic(KeyEvent.VK_1);
+			radioButtons[j].setActionCommand("True");
+			radioButtons[j].addActionListener(this);
+			radioButtonPanel.add(radioButtons[j]);
+		}
+		
+		
+		for(int i = 0; i < radioButtons.length; i++)
+		{
+			
+		}
 		options = new JButton("OPTIONS");	
 		exit = new JButton("EXIT");
 		options.setBackground(new Color(220, 220, 220));
@@ -115,6 +135,7 @@ public class Table implements ActionListener{
 			panel[i] = new DrawingPanel();
 			panel[i].setText(this.col.get(i));
 			panel2[i] = new DrawingPanel();
+			panel3[i] = new DrawingPanel();
 			panel[i].setBackground(Color.white);
 		}
 		
@@ -140,6 +161,7 @@ public class Table implements ActionListener{
 			con.gridx = i;
 			con.gridy = 2;
 			pane.add(panel2[i], con);
+			pane.add(panel3[i], con);
 		}
 		options.addActionListener(this);
 		exit.addActionListener(this);
