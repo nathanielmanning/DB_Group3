@@ -5,6 +5,8 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -12,7 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class Table implements ActionListener{
+public class Table implements ActionListener, WindowListener{
 	
 	private JFrame frame;
 	private ArrayList<String> col = new ArrayList<String>();
@@ -82,7 +84,8 @@ public class Table implements ActionListener{
 		frame.add(this.createLayout());
 		frame.setResizable(false);
 		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.addWindowListener(this);
 		frame.pack();
 	}
 	
@@ -103,7 +106,7 @@ public class Table implements ActionListener{
 		con.gridy = 0;
 		
 		options = new JButton("OPTIONS");	
-		exit = new JButton("EXIT");
+		exit = new JButton("CLOSE");
 		options.setBackground(new Color(220, 220, 220));
 		exit.setBackground(new Color(220, 220, 220));
 		pane.add(buttonPanel, con);
@@ -152,19 +155,54 @@ public class Table implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == this.options)
 		{
-			if(op == null)
+			if(Options.getOptionsModule() != null)
+				Options.getOptionsModule().closeOptions();
+			if(Options.getOptionsModule() == null)
 			{
-				op = new Options();
-				op.openWindow();
+				Options.createOptionsModule().openWindow();
 			}
 		}
 		if(e.getSource() == this.exit)
 		{
-			if(op != null)
-				op.closeOptions();
-			op = null;
+			if(Options.getOptionsModule()!=null)
+				Options.getOptionsModule().closeOptions();
 			this.frame.dispose();
 		}
+	}
+	
+	@Override
+	public void windowActivated(WindowEvent arg0) {
+	}
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+		if(e.getWindow() == frame)
+		{
+			if(Options.getOptionsModule()!=null)
+				Options.getOptionsModule().closeOptions();
+			this.frame.dispose();
+			Table.currentTable = null;
+		}
+	}
+
+	@Override
+	public void windowClosing(WindowEvent arg0) {
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent arg0) {
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent arg0) {	
+	}
+
+	@Override
+	public void windowIconified(WindowEvent arg0) {
+	}
+
+	@Override
+	public void windowOpened(WindowEvent arg0) {
 	}
 	
 }

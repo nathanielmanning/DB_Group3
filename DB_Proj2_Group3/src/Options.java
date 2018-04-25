@@ -12,10 +12,31 @@ import javax.swing.JPanel;
 public class Options implements ActionListener {
 	
 	JFrame frame;
+	private static Options op = null;
+	
+	public static Options createOptionsModule()
+	{
+		if(Options.op == null)	
+			Options.op = new Options();
+		return Options.op;
+	}
+	
+	public static Options getOptionsModule()
+	{
+		return Options.op;
+	}
+	
+	private Options()
+	{
+	
+	}
 	
 	public void closeOptions()
 	{
 		frame.dispose();
+		Options.op = null;
+		if(AddColumn.getAddColumnModule() != null)
+			AddColumn.getAddColumnModule().closeWindow();
 	}
 	
 	
@@ -59,21 +80,17 @@ public class Options implements ActionListener {
 		button[5].setText("ADD/REMOVE FOREIGN KEY");
 	}
 
-	
-	private AddColumn addCol;
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == button[2])
 		{
-			if(addCol == null)
-				addCol = new AddColumn();
-			
+			if(AddColumn.getAddColumnModule() == null)
+				AddColumn.createAddColumnModule().openWindow();
 		}
 		if(e.getSource() == button[3])
 		{
 			Table.getTable().removeColumn(0);
 		}
 	}
-	
-	
+
 }
