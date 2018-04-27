@@ -7,12 +7,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import mySQLInterface.DataBase;
 
 public class Table implements ActionListener, WindowListener{
 	
@@ -22,6 +26,39 @@ public class Table implements ActionListener, WindowListener{
 	private JPanel pane;
 	private String tableName = "";
 	private static Table currentTable = null;
+	
+	
+	public String[] getColNamesFromDB()
+	{
+		try {
+			ResultSet r = DataBase.getDataBase().retrieveData("show columns from " + this.tableName + ";");
+			ArrayList<String> list = new ArrayList<String>();
+			while(r.next())
+			{
+				list.add(r.getString(1));
+			}
+			String names[] = new String[list.size()];
+			for(int j = 0; j < names.length; j++)
+				names[j] = list.get(j);
+			return names;
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public void addMultiColumns(String[] colNames)
+	{
+		if(colNames == null)
+			return;
+		for(int i = 0; i < colNames.length; i++)
+		{
+			this.col.add(colNames[i]);
+			this.colNum++;
+		}
+		this.refreshWindow();
+	}
 	
 	public static Table createTable(String tableName, String[] colNames)
 	{
@@ -33,6 +70,11 @@ public class Table implements ActionListener, WindowListener{
 	public static Table getTable()
 	{
 		return Table.currentTable;
+	}
+	
+	public void removeTable()
+	{
+		this.currentTable = null;
 	}
 	
 	public void addColumn(String name)
@@ -51,15 +93,20 @@ public class Table implements ActionListener, WindowListener{
 	
 	private Table(String tableName, String[] colNames)
 	{
-		this.tableName = tableName;
-		
-		if(colNames != null && colNames.length > 0)
+		if(tableName != null)
+			this.tableName = tableName;
+		if(colNames == null)
+			return;
+		if(colNames.length > 0)
 		{
-			for(int i = 0; i < colNames.length; i++)
+			if(colNames != null && colNames.length > 0)
 			{
-				col.add(colNames[i]);
+				for(int i = 0; i < colNames.length; i++)
+				{
+					col.add(colNames[i]);
+				}
+				colNum = col.size();
 			}
-			colNum = col.size();
 		}
 	}
 	

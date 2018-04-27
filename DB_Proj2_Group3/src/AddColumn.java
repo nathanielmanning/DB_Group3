@@ -1,15 +1,13 @@
-import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
+import mySQLInterface.*;
 
 public class AddColumn implements ActionListener, WindowListener{
 	
@@ -83,7 +81,15 @@ public class AddColumn implements ActionListener, WindowListener{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == button)
 		{
-			Table.getTable().addColumn(colName.getText());
+			
+				try {
+					DataBase.getDataBase().AddData("alter table test add " + this.colName.getText() + " " + this.DataType.getText());
+					Table.getTable().addColumn(colName.getText());
+				} catch (Exception e1) {
+				
+					e1.printStackTrace();
+				}
+				
 			
 			if(this.getFrame() != null)
 				this.closeWindow();

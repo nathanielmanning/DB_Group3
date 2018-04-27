@@ -1,9 +1,15 @@
 
+
+import mySQLInterface.DataBase;
+
 public class main {
-	public static void main (String[] args)
+	public static void main (String[] args) throws Exception
 	{
-		String names[] = {"Player", "Login", "Password", "Character", "new col"};
-		Table.createTable("TABLE", names);
+		DataBase.getDataBase().setUpDatabaseConnection();
+		String test[] = {"fsd"};
+		Table.createTable("test", null);
 		Table.getTable().openWindow();
+		Table.getTable().addMultiColumns(Table.getTable().getColNamesFromDB());
+	
 	}
 }
