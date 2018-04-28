@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -98,8 +99,10 @@ public class TableSelect implements ActionListener{
 			con.anchor = GridBagConstraints.CENTER;
 			this.tableNames[i] = new JButton(tables[i]);
 			this.tableNames[i].addActionListener(this);
+			this.tableNames[i].setBackground(new Color(220, 220, 220));
 			pane.add(this.tableNames[i], con);
 		}
+		pane.setBackground(Color.cyan);
 		return pane;
 	}
 

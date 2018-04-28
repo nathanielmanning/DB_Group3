@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -60,11 +61,15 @@ public class MainMenu implements WindowListener, ActionListener{
 
 	JPanel pane = new JPanel(new GridLayout(2,1));
 	JButton getTables = new JButton("Table List");
-	
+	JButton customQuery = new JButton("Custom Query");
 	private void createLayout()
 	{
+		this.getTables.setBackground(new Color(220, 220, 220));
+		this.customQuery.setBackground(new Color(220, 220, 220));
 		pane.add(this.getTables);
+		pane.add(this.customQuery);
 		this.getTables.addActionListener(this);
+		this.customQuery.addActionListener(this);;
 	}
 
 	@Override
