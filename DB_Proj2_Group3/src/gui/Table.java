@@ -163,6 +163,11 @@ public class Table implements ActionListener, WindowListener{
 		this.refreshWindow();
 	}
 	
+	public void addRow() {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	private Table(String tableName, String[] colNames)
 	{
 		if(tableName != null)
@@ -353,5 +358,4 @@ public class Table implements ActionListener, WindowListener{
 	@Override
 	public void windowOpened(WindowEvent arg0) {
 	}
-	
 }
