@@ -11,6 +11,7 @@ import java.awt.event.WindowListener;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -28,6 +29,27 @@ public class Table implements ActionListener, WindowListener{
 	private String tableName = "";
 	private static Table currentTable = null;
 	
+	
+	public boolean isPrimaryKey(int colNum)
+	{
+		String keys[] = this.getColumnAttributes(4);
+		if(keys[colNum].equals("PRI"))
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	
+	public boolean isForeignKey(int colNum)
+	{
+		String keys[] = this.getColumnAttributes(4);
+		if(keys[colNum].equals("FOR"))
+		{
+			return true;
+		}
+		return false;
+	}
 	
 	public String[] getColumnAttributes(int num)
 	{
@@ -190,6 +212,7 @@ public class Table implements ActionListener, WindowListener{
 	DrawingPanel panel[];
 	DrawingPanel panel2[];
 	DrawingPanel type[];
+	JPanel keyPanel = new JPanel(new GridLayout(1, 2));
 	private JPanel createLayout()
 	{
 		pane = new JPanel();
@@ -201,6 +224,9 @@ public class Table implements ActionListener, WindowListener{
 		pane.setLayout(new GridBagLayout());
 		GridBagConstraints con = new GridBagConstraints();
 		pane.setBackground(Color.CYAN);
+		
+
+		con.ipady = 20;
 		con.gridx = colNum-1;
 		con.gridy = 0;
 		
@@ -215,6 +241,11 @@ public class Table implements ActionListener, WindowListener{
 		for(int i = 0; i < panel.length; i++)
 		{
 			String text[] = {this.col.get(i)};
+			if(this.isPrimaryKey(i))
+				text[0] = text[0] + " (PK)";
+			if(this.isForeignKey(i))
+				text[0] = text[0] + " (FK)";
+			
 			panel[i] = new DrawingPanel();
 			panel[i].setText(text);
 			panel2[i] = new DrawingPanel();
@@ -260,7 +291,7 @@ public class Table implements ActionListener, WindowListener{
 			con.ipady = 500;
 			con.insets = new Insets(0, 0, 0, 0);
 			con.gridx = i;
-			con.gridy = 3;
+			con.gridy = 4;
 			pane.add(panel2[i], con);
 		}
 		options.addActionListener(this);

@@ -100,9 +100,10 @@ public class TableSelect implements ActionListener{
 			this.tableNames[i] = new JButton(tables[i]);
 			this.tableNames[i].addActionListener(this);
 			this.tableNames[i].setBackground(new Color(220, 220, 220));
+			tableNames[i].setBorderPainted(false);
 			pane.add(this.tableNames[i], con);
 		}
-		pane.setBackground(Color.cyan);
+		pane.setBackground(new Color(220, 220, 220));
 		return pane;
 	}
 
