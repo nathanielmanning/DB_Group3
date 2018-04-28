@@ -89,7 +89,8 @@ public class Options implements ActionListener {
 		}
 		if(e.getSource() == button[3])
 		{
-			Table.getTable().removeColumn(0);
+			if(DeleteColumn.getDeleteColumnModule() == null)
+				DeleteColumn.createDeleteColumnModule().openWindow();;
 		}
 	}
 
