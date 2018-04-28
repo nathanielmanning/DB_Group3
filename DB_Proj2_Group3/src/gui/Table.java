@@ -115,9 +115,12 @@ public class Table implements ActionListener, WindowListener{
 		return Table.currentTable;
 	}
 	
-	public void removeTable()
+	public void closeWindow()
 	{
-		this.currentTable = null;
+		if(Options.getOptionsModule()!=null)
+			Options.getOptionsModule().closeOptions();
+		this.frame.dispose();
+		Table.currentTable = null;
 	}
 	
 	public void addColumn(String name)
@@ -297,7 +300,6 @@ public class Table implements ActionListener, WindowListener{
 			if(Options.getOptionsModule()!=null)
 				Options.getOptionsModule().closeOptions();
 			this.frame.dispose();
-			Table.currentTable = null;
 		}
 	}
 
