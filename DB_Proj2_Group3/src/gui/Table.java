@@ -29,19 +29,19 @@ public class Table implements ActionListener, WindowListener{
 	private static Table currentTable = null;
 	
 	
-	public String[] getColNamesFromDB()
+	public String[] getColumnAttributes(int num)
 	{
 		try {
 			ResultSet r = DataBase.getDataBase().retrieveData("show columns from " + this.tableName + ";");
 			ArrayList<String> list = new ArrayList<String>();
 			while(r.next())
 			{
-				list.add(r.getString(1));
+				list.add(r.getString(num));
 			}
-			String names[] = new String[list.size()];
-			for(int j = 0; j < names.length; j++)
-				names[j] = list.get(j);
-			return names;
+			String data[] = new String[list.size()];
+			for(int j = 0; j < data.length; j++)
+				data[j] = list.get(j);
+			return data;
 		}catch(Exception e)
 		{
 			e.printStackTrace();
@@ -49,6 +49,38 @@ public class Table implements ActionListener, WindowListener{
 		return null;
 	}
 	
+	public String[] getColNamesFromDB()
+	{
+		return this.getColumnAttributes(1);
+	}
+	
+	public String[] getColTypeFromDB()
+	{
+		String type[] = this.getColumnAttributes(2);
+		for(int i = 0; i < type.length; i++)
+			type[i] = "Type = " + type[i];
+		return type;
+	}
+	
+	public String[] getColInfoFromDB(int colNum)
+	{
+		try {
+			ResultSet r = DataBase.getDataBase().retrieveData("select * from " + this.tableName + ";");
+			ArrayList<String> list = new ArrayList<String>();
+			while(r.next())
+			{
+				list.add(r.getString(colNum + 1));
+			}
+			String data[] = new String[list.size()];
+			for(int j = 0; j < data.length; j++)
+				data[j] = list.get(j);
+			return data;
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return null;
+	}
 	public int getColCount()
 	{
 		return this.colNum;
@@ -154,12 +186,14 @@ public class Table implements ActionListener, WindowListener{
 	JButton options, exit;;
 	DrawingPanel panel[];
 	DrawingPanel panel2[];
-	
+	DrawingPanel type[];
 	private JPanel createLayout()
 	{
 		pane = new JPanel();
 		panel = new DrawingPanel[this.colNum];
 		panel2 = new DrawingPanel[this.colNum];
+		type = new DrawingPanel[this.colNum];
+		
 		JPanel buttonPanel = new JPanel(new GridLayout(1,2));
 		pane.setLayout(new GridBagLayout());
 		GridBagConstraints con = new GridBagConstraints();
@@ -177,10 +211,19 @@ public class Table implements ActionListener, WindowListener{
 		buttonPanel.add(options);
 		for(int i = 0; i < panel.length; i++)
 		{
+			String text[] = {this.col.get(i)};
 			panel[i] = new DrawingPanel();
-			panel[i].setText(this.col.get(i));
+			panel[i].setText(text);
 			panel2[i] = new DrawingPanel();
+			text = this.getColInfoFromDB(i);
+			panel2[i].setText(text);
 			panel[i].setBackground(Color.white);
+			
+			type[i] = new DrawingPanel();
+			text = this.getColTypeFromDB();
+			String tmp[] = {text[i]};
+			type[i].setBackground(Color.white);
+			type[i].setText(tmp);
 		}
 		
 		con.fill = GridBagConstraints.HORIZONTAL;
@@ -190,6 +233,17 @@ public class Table implements ActionListener, WindowListener{
 			con.insets = new Insets(0, 0, 0, 0);
 			con.gridx = i;
 			con.gridy = 1;
+			con.ipady = 25;
+			type[i].setBorder(BorderFactory.createLineBorder(Color.BLACK));
+			pane.add(type[i], con);
+		}
+		
+		for(int i = 0; i < panel.length; i++)
+		{
+			con.ipadx = 120;
+			con.insets = new Insets(0, 0, 0, 0);
+			con.gridx = i;
+			con.gridy = 2;
 			con.ipady = 25;
 			panel[i].setBorder(BorderFactory.createLineBorder(Color.BLACK));
 			pane.add(panel[i], con);
@@ -203,7 +257,7 @@ public class Table implements ActionListener, WindowListener{
 			con.ipady = 500;
 			con.insets = new Insets(0, 0, 0, 0);
 			con.gridx = i;
-			con.gridy = 2;
+			con.gridy = 3;
 			pane.add(panel2[i], con);
 		}
 		options.addActionListener(this);

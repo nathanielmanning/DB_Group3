@@ -84,7 +84,14 @@ public class AddColumn implements ActionListener, WindowListener{
 		{
 			
 				try {
-					DataBase.getDataBase().AddData("alter table " + Table.getTable().getName() + " add " + this.colName.getText() + " " + this.DataType.getText());
+					String command = "";
+					if(this.DefaultValue.getText().equals("DEFAULT_VALUE") || this.DefaultValue.getText().equals(""))
+						command = "alter table " + Table.getTable().getName() + " add " + this.colName.getText() + " " + this.DataType.getText();
+					else
+					{
+						command = "alter table " + Table.getTable().getName() + " add " + this.colName.getText() + " " + this.DataType.getText() + " NOT NULL DEFAULT " + this.DefaultValue.getText();
+					}
+					DataBase.getDataBase().AddData(command);
 					Table.getTable().addColumn(colName.getText());
 				} catch (Exception e1) {
 				
