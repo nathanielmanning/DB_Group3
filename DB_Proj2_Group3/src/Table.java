@@ -48,6 +48,16 @@ public class Table implements ActionListener, WindowListener{
 		return null;
 	}
 	
+	public int getColCount()
+	{
+		return this.colNum;
+	}
+	
+	public String getName()
+	{
+		return this.tableName;
+	}
+	
 	public void addMultiColumns(String[] colNames)
 	{
 		if(colNames == null)
@@ -84,9 +94,13 @@ public class Table implements ActionListener, WindowListener{
 		this.refreshWindow();
 	}
 	
-	public void removeColumn(int index)
+	public void removeColumn(String name)
 	{
-		col.remove(index);
+		for(int i = 0; i < col.size(); i++)
+		{
+			if(col.get(i).equals(name))
+				col.remove(col.get(i));
+		}
 		colNum = col.size();
 		this.refreshWindow();
 	}
@@ -115,7 +129,7 @@ public class Table implements ActionListener, WindowListener{
 		this.createFrame();
 	}
 	
-	private void refreshWindow()
+	public void refreshWindow()
 	{
 		frame.remove(pane);
 		frame.add(this.createLayout());

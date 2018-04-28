@@ -83,7 +83,7 @@ public class AddColumn implements ActionListener, WindowListener{
 		{
 			
 				try {
-					DataBase.getDataBase().AddData("alter table test add " + this.colName.getText() + " " + this.DataType.getText());
+					DataBase.getDataBase().AddData("alter table " + Table.getTable().getName() + " add " + this.colName.getText() + " " + this.DataType.getText());
 					Table.getTable().addColumn(colName.getText());
 				} catch (Exception e1) {
 				
