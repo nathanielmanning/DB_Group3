@@ -13,7 +13,8 @@ gradle-app.setting
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
 # gradle/wrapper/gradle-wrapper.properties
 /.metadata/
-/.recommenders/
-/.project/
-/.classpath/
-/.settings/
+*.recommenders/
+*.project/
+*.classpath/
+*.settings/
+*.class
