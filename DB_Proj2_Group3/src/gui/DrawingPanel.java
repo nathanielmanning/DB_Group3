@@ -16,7 +16,6 @@ public class DrawingPanel extends JPanel{
 	{
 		super.paintComponent(g);
 		g.setColor(Color.BLACK);
-		System.out.println(Arrays.toString(text));
 		for(int i = 0; i < text.length; i++)
 		{
 			if(text[i] != null)
