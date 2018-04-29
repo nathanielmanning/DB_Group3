@@ -23,7 +23,7 @@ public class AddRow implements ActionListener, WindowListener {
 		return addRow;
 	}
 
-	public static AddRow getAddRModule() {
+	public static AddRow getAddRowModule() {
 		return addRow;
 	}
 
@@ -48,7 +48,7 @@ public class AddRow implements ActionListener, WindowListener {
 
 	private void createFrame() {
 		frame = new JFrame("ADD ROW");
-		frame.setSize(300, 100);
+		frame.setSize(300, 300);
 		frame.setResizable(false);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -57,23 +57,29 @@ public class AddRow implements ActionListener, WindowListener {
 		frame.setVisible(true);
 		frame.setLocation(600, 210);
 	}
-
-	JTextField colName = new JTextField("COLUMN NAME");
-	JTextField value = new JTextField("VALUE");
-	JTextField not_null = new JTextField("NOT NULL");
-	JTextField fk = new JTextField("FK");
-	JTextField fk_Reference = new JTextField("FK TABLE REFERENCE");
-	JTextField pk = new JTextField("PK");
-	JPanel pane = new JPanel(new GridLayout(6, 2));
+	
+	/***************************************************************************
+	* Creates the layout by first creating the text fields and adds the name   *
+	* of the column where the value will be stored.                            *
+	* Then, adds the text fields to the pane after they are created.           *
+	*                                                                          *
+	* @param colCount: The total count of columns in the table.                *
+	* @param textFields: An array of all text fields, the size is              *
+	*              determined by the number of columns in the table.           *
+	* @param colNames: Names of all columns in the table.                      *
+	***************************************************************************/
+	int colCount = Table.getTable().getColCount();
+	JTextField[] textFields = new JTextField[Table.getTable().getColCount()];
+	String[] colNames = Table.getTable().getColNamesFromDB();
+	JPanel pane = new JPanel(new GridLayout(10, 1));
 	JButton button = new JButton("SUBMIT");
-
+	
 	private void createLayout() {
-		pane.add(this.colName);
-		pane.add(this.value);
-		pane.add(this.not_null);
-		pane.add(this.fk);
-		pane.add(this.fk_Reference);
-		pane.add(this.pk);
+		for(int i = 0; i < colCount; i++)
+		{
+			textFields[i] = new JTextField(colNames[i]);
+			pane.add(textFields[i]);
+		}
 		pane.add(this.button);
 
 		button.addActionListener(this);
@@ -85,10 +91,11 @@ public class AddRow implements ActionListener, WindowListener {
 
 			try {
 				String columns = Arrays.toString(Table.getTable().getColNamesFromDB()).replaceAll("\\[", "").replaceAll("\\]", "");
-				//String values = Arrays.toString(Table.getTable().getRowValuesFromDB()).replaceAll("\\[", "").replaceAll("\\]", "");
-			//	DataBase.getDataBase()
-			//			.AddData("insert into Test " + this.colName.getText() + " (" + columns + " (" + values + ")") ;
-			//	Table.getTable().addRow();
+				System.out.println(columns);
+//				String values = ;
+//				DataBase.getDataBase()
+//						.AddData("insert into Test " + this.colName.getText() + " (" + columns + " (" + values + ")") ;
+//				Table.getTable().addRow();
 			} catch (Exception e1) {
 
 				e1.printStackTrace();
@@ -135,4 +142,6 @@ public class AddRow implements ActionListener, WindowListener {
 	@Override
 	public void windowOpened(WindowEvent arg0) {
 	}
+
+	
 }
