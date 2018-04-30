@@ -111,7 +111,8 @@ public class AddRow implements ActionListener, WindowListener {
 					if(textFields[i].getText() != colNames[i])
 					{
 						
-						if (colTypes[i].contains("var")) 
+						if (colTypes[i].contains("var") || colTypes[i].contains("char")) 
+							
 						{
 							values += "'" + textFields[i].getText() + "'";
 							addCols += colNames[i];
@@ -136,9 +137,9 @@ public class AddRow implements ActionListener, WindowListener {
 				}
 //				values = values.replaceAll("\\s", ", ");
 //				addCols = addCols.replaceAll("\\s", ", ");
-				System.out.println("insert into Test " + " (" + addCols + ") "+ "values" + " (" + values + ");");
+				System.out.println("insert into " + Table.getTable().getName() + " (" + addCols + ") "+ "values" + " (" + values + ");");
 				DataBase.getDataBase()
-						.AddData("insert into Test " + " (" + addCols + ") "+ "values" + " (" + values + ");") ;
+						.AddData("insert into " + Table.getTable().getName() + " (" + addCols + ") "+ "values" + " (" + values + ");") ;
 				Table.getTable().addRow();
 			} catch (Exception e1) {
 
