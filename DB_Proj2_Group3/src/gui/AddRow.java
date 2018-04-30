@@ -1,4 +1,7 @@
 package gui;
+import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -6,6 +9,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.Arrays;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -71,16 +75,25 @@ public class AddRow implements ActionListener, WindowListener {
 	int colCount = Table.getTable().getColCount();
 	JTextField[] textFields = new JTextField[Table.getTable().getColCount()];
 	String[] colNames = Table.getTable().getColNamesFromDB();
-	JPanel pane = new JPanel(new GridLayout(10, 1));
+	String[] colTypes = Table.getTable().getColTypeFromDB();
+	JPanel pane = new JPanel();
+	GridBagConstraints con = new GridBagConstraints();
 	JButton button = new JButton("SUBMIT");
 	
 	private void createLayout() {
+		pane.setLayout(new GridBagLayout());
+		con.fill = GridBagConstraints.HORIZONTAL;
+		con.ipady = 10;
+		con.ipadx = 100;
 		for(int i = 0; i < colCount; i++)
 		{
 			textFields[i] = new JTextField(colNames[i]);
-			pane.add(textFields[i]);
+			con.gridy = i;
+			pane.add(textFields[i], con);
 		}
-		pane.add(this.button);
+		con.gridx+= 1;
+		con.gridy+= 1;
+		pane.add(this.button, con);
 
 		button.addActionListener(this);
 	}
@@ -90,17 +103,48 @@ public class AddRow implements ActionListener, WindowListener {
 		if (e.getSource() == button) {
 
 			try {
-				String columns = Arrays.toString(Table.getTable().getColNamesFromDB()).replaceAll("\\[", "").replaceAll("\\]", "");
-				System.out.println(columns);
-//				String values = ;
-//				DataBase.getDataBase()
-//						.AddData("insert into Test " + this.colName.getText() + " (" + columns + " (" + values + ")") ;
-//				Table.getTable().addRow();
+//				String columns = Arrays.toString(Table.getTable().getColNamesFromDB()).replaceAll("\\[", "").replaceAll("\\]", "");
+				String values = "";
+				String addCols = "";
+				for(int i = 0; i < colNames.length; i++)
+				{
+					if(textFields[i].getText() != colNames[i])
+					{
+						
+						if (colTypes[i].contains("var")) 
+						{
+							values += "'" + textFields[i].getText() + "'";
+							addCols += colNames[i];
+						}
+						else
+						{
+							values += textFields[i].getText();
+							addCols += colNames[i];
+						}
+						if (i + 1 != colNames.length) {
+							values += ", ";
+							addCols += ", ";
+						}
+
+					} 
+					else 
+					{
+						values += textFields[i].getText();
+						addCols += colNames[i];
+					}
+					
+				}
+//				values = values.replaceAll("\\s", ", ");
+//				addCols = addCols.replaceAll("\\s", ", ");
+				System.out.println("insert into Test " + " (" + addCols + ") "+ "values" + " (" + values + ");");
+				DataBase.getDataBase()
+						.AddData("insert into Test " + " (" + addCols + ") "+ "values" + " (" + values + ");") ;
+				Table.getTable().addRow();
 			} catch (Exception e1) {
 
 				e1.printStackTrace();
 			}
-
+			
 			if (this.getFrame() != null)
 				this.closeWindow();
 		}

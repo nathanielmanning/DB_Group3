@@ -164,7 +164,7 @@ public class Table implements ActionListener, WindowListener{
 	}
 	
 	public void addRow() {
-		// TODO Auto-generated method stub
+		this.refreshWindow();
 		
 	}
 	
