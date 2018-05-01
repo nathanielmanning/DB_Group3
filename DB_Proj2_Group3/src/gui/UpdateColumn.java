@@ -22,6 +22,9 @@ public class UpdateColumn implements ActionListener, WindowListener{
 	private JFrame frame;
 	private static UpdateColumn column = null;
 	
+	/*
+	 * Creates the module
+	 */
 	public static UpdateColumn createUpdateColumnModule()
 	{
 		if(UpdateColumn.column == null)	
@@ -29,12 +32,17 @@ public class UpdateColumn implements ActionListener, WindowListener{
 		return UpdateColumn.column;
 	}
 	
+	/*
+	 * return the module
+	 */
 	public static  UpdateColumn getUpdateColumnModule()
 	{
 		return UpdateColumn.column;
 	}
 	
-	
+	/*
+	 * disposes of the window properly
+	 */
 	public void closeWindow()
 	{
 		frame.dispose();
@@ -42,16 +50,25 @@ public class UpdateColumn implements ActionListener, WindowListener{
 		UpdateColumn.column = null;
 	}
 	
+	/*
+	 * returns the frame
+	 */
 	public JFrame getFrame()
 	{
 		return frame;
 	}
 	
+	/*
+	 * Sets up the frame
+	 */
 	public void openWindow()
 	{
 		this.createFrame();
 	}
 	
+	/*
+	 * Holds all the frame information
+	 */
 	private void createFrame()
 	{
 		frame = new JFrame("Update Item");
@@ -71,6 +88,9 @@ public class UpdateColumn implements ActionListener, WindowListener{
 	JTextField t = new JTextField("New Values(column1=value1, column2=value2)");
 	JTextField t2 = new JTextField("Conditions");
 	JRadioButton radButtons[];
+	/*
+	 * Creates the layout of the window
+	 */
 	private JPanel createLayout()
 	{
 		
@@ -86,21 +106,21 @@ public class UpdateColumn implements ActionListener, WindowListener{
 		return pane;
 	}
 	
+	/*
+	 * Runs the update command when submit is pressed
+	 * (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	public void actionPerformed(ActionEvent e){
 		if(e.getSource() == button){
 			String query = "update " + Table.getTable().getName() + " set "+ t.getText() + " where " + t2.getText();
 			DataBase.getDataBase().AddData(query);
-			frame.dispose();
+			closeWindow();
 			//runQuery(query);
 			
 		}
 		
 	}
-	
-	/*public void runQuery(String q){
-		DataBase.getDataBase().createPreparedStatement(q);
-		DataBase.getDataBase().executePreparedStatement();
-	}*/
 
 	@Override
 	public void windowActivated(WindowEvent arg0) {

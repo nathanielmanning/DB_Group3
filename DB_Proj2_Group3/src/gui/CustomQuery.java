@@ -22,6 +22,9 @@ public class CustomQuery implements ActionListener, WindowListener{
 	private JFrame frame;
 	private static CustomQuery query = null;
 	
+	/*
+	 * Creates the module
+	 */
 	public static CustomQuery createCustomQueryModule()
 	{
 		if(CustomQuery.query == null)	
@@ -29,12 +32,17 @@ public class CustomQuery implements ActionListener, WindowListener{
 		return CustomQuery.query;
 	}
 	
+	/*
+	 * returns the module
+	 */
 	public static  CustomQuery getCustomQueryModule()
 	{
 		return CustomQuery.query;
 	}
 	
-	
+	/*
+	 * Properly disposes window
+	 */
 	public void closeWindow()
 	{
 		frame.dispose();
@@ -42,16 +50,25 @@ public class CustomQuery implements ActionListener, WindowListener{
 		CustomQuery.query = null;
 	}
 	
+	/*
+	 * returns the frame
+	 */
 	public JFrame getFrame()
 	{
 		return frame;
 	}
 	
+	/*
+	 * sets up and opens the window
+	 */
 	public void openWindow()
 	{
 		this.createFrame();
 	}
 	
+	/*
+	 * holds the information for the window
+	 */
 	private void createFrame()
 	{
 		frame = new JFrame("Custom Query");
@@ -70,6 +87,9 @@ public class CustomQuery implements ActionListener, WindowListener{
 	JButton button = new JButton("SUBMIT");
 	JTextField t = new JTextField("Enter Query Here");
 	JRadioButton radButtons[];
+	/*
+	 * creates the layout of the window
+	 */
 	private JPanel createLayout()
 	{
 		
@@ -83,6 +103,11 @@ public class CustomQuery implements ActionListener, WindowListener{
 		return pane;
 	}
 	
+	/*
+	 * runs the command when submit is pressed
+	 * (non-Javadoc)
+	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+	 */
 	public void actionPerformed(ActionEvent e){
 		if(e.getSource() == button){
 			String query = t.getText();
@@ -120,11 +145,6 @@ public class CustomQuery implements ActionListener, WindowListener{
 			
 		}
 		
-	}
-	
-	public void runQuery(String q){
-		DataBase.getDataBase().createPreparedStatement(q);
-		DataBase.getDataBase().executePreparedStatement();
 	}
 
 	@Override
