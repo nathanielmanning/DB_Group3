@@ -1,3 +1,10 @@
+/**
+ * DeleteRow.java
+ * 
+ * Deletes a row in the table
+ * 
+ * @author Nathaniel Manning
+ */
 package gui;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
@@ -22,12 +29,19 @@ public class DeleteRow implements ActionListener, WindowListener {
 	private JFrame frame;
 	private static DeleteRow deleteRow = null;
 
+	/*
+	 * returns the instance of Addrow.
+	 * If there wasn't an instance, it creates one.
+	 */
 	public static DeleteRow createDeleteRowModule() {
 		if (deleteRow == null)
 			deleteRow = new DeleteRow();
 		return deleteRow;
 	}
 
+	/*
+	 * returns the instance of AddRow
+	 */
 	public static DeleteRow getDeleteRowModule() {
 		return deleteRow;
 	}
@@ -36,21 +50,34 @@ public class DeleteRow implements ActionListener, WindowListener {
 
 	}
 
+	/*
+	 * closes the window by getting rid of the frame
+	 */
 	public void closeWindow() {
 		frame.dispose();
 		this.frame = null;
 		deleteRow = null;
 	}
 
+	/*
+	 * returns the frame for the window
+	 */
 	public JFrame getFrame() {
 		return frame;
 	}
 
+	/*
+	 * On call, creates the window and the layout for the window
+	 * to be displayed.
+	 */
 	public void openWindow() {
 		this.createFrame();
 		this.createLayout();
 	}
 
+	/*
+	 * creates the frame for the update row window
+	 */
 	private void createFrame() {
 		frame = new JFrame("DELETE ROW");
 		frame.setSize(300, 300);

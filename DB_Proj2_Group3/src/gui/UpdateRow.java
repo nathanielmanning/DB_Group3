@@ -22,12 +22,19 @@ public class UpdateRow implements ActionListener, WindowListener {
 	private JFrame frame;
 	private static UpdateRow updateRow = null;
 
+	/*
+	 * returns the instance of Updaterow.
+	 * If there wasn't an instance, it creates one.
+	 */
 	public static UpdateRow createUpdateRowModule() {
 		if (updateRow == null)
 			updateRow = new UpdateRow();
 		return updateRow;
 	}
 
+	/*
+	 * returns the instance of AddRow
+	 */
 	public static UpdateRow getUpdateRowModule() {
 		return updateRow;
 	}
@@ -36,23 +43,36 @@ public class UpdateRow implements ActionListener, WindowListener {
 
 	}
 
+	/*
+	 * closes the window by getting rid of the frame
+	 */
 	public void closeWindow() {
 		frame.dispose();
 		this.frame = null;
 		updateRow = null;
 	}
 
+	/*
+	 * returns the frame for the window
+	 */
 	public JFrame getFrame() {
 		return frame;
 	}
 
+	/*
+	 * On call, creates the window and the layout for the window
+	 * to be displayed.
+	 */
 	public void openWindow() {
 		this.createFrame();
 		this.createLayout();
 	}
 
+	/*
+	 * creates the frame for the update row window
+	 */
 	private void createFrame() {
-		frame = new JFrame("DELETE ROW");
+		frame = new JFrame("UPDATE ROW");
 		frame.setSize(300, 300);
 		frame.setResizable(false);
 		frame.setVisible(true);
