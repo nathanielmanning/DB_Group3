@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.swing.BorderFactory;
@@ -103,14 +104,36 @@ public class DeleteRow implements ActionListener, WindowListener {
 		if (e.getSource() == button) {
 
 			try {
-//				String columns = Arrays.toString(Table.getTable().getColNamesFromDB()).replaceAll("\\[", "").replaceAll("\\]", "");
-				String values = "";
-				String addCols = "";
-//				values = values.replaceAll("\\s", ", ");
-//				addCols = addCols.replaceAll("\\s", ", ");
-				System.out.println("insert into " + Table.getTable().getName() + " (" + addCols + ") "+ "values" + " (" + values + ");");
-				DataBase.getDataBase()
-						.AddData("insert into " + Table.getTable().getName() + " (" + addCols + ") "+ "values" + " (" + values + ");") ;
+				ArrayList<String> values = new ArrayList<String>();
+				ArrayList<String> pk = new ArrayList<String>();
+				for(int i = 0; i < colNames.length; i++)
+				{
+					if(Table.getTable().isPrimaryKey(i))
+					{
+						pk.add(colNames[i]);
+						if(colTypes[i].contains("char"))
+						{
+							values.add("'" + textFields[i].getText() + "'");
+						}
+						else
+						{
+							values.add(textFields[i].getText());
+						}
+					}
+				}
+				for(int i = 0; i < pk.size(); i++)
+				{
+					System.out.println("delete from " + Table.getTable().getName() + " where " + pk.get(i) + " = " + values.get(i) + ";");
+				}
+				for(int i = 0; i < pk.size(); i++)
+				{
+					DataBase.getDataBase()
+					.AddData("delete from " + Table.getTable().getName() + "where " + pk.get(i) + " = " + values.get(i) + ";");
+				}
+				
+//				System.out.println("update " + Table.getTable().getName() + "set " + colName + " = " + value + " where " + pk + " = "   + ";");
+//				DataBase.getDataBase()
+//						.AddData("update " + Table.getTable().getName() + "set " + colName + " = " + value + " where " + Table.getTable() + ";") ;
 				Table.getTable().refresh();
 			} catch (Exception e1) {
 
