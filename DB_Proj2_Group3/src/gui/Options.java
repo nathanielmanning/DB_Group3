@@ -61,7 +61,7 @@ public class Options implements ActionListener {
 	}
 	
 	JPanel pane = new JPanel(new GridLayout(6,1));
-	JButton button[] = new JButton[6];
+	JButton button[] = new JButton[7];
 	
 	private void createLayout()
 	{
@@ -75,10 +75,11 @@ public class Options implements ActionListener {
 		}
 		button[0].setText("ADD ROW");
 		button[1].setText("DELETE ROW");
-		button[2].setText("ADD COLUMN");
-		button[3].setText("DELETE COLUMN");
-		button[4].setText("ADD/REMOVE PRIMARY KEY");
-		button[5].setText("ADD/REMOVE FOREIGN KEY");
+		button[2].setText("UPDATE ROW");
+		button[3].setText("ADD COLUMN");
+		button[4].setText("DELETE COLUMN");
+		button[5].setText("ADD/REMOVE PRIMARY KEY");
+		button[6].setText("ADD/REMOVE FOREIGN KEY");
 	}
 
 	@Override
@@ -95,10 +96,15 @@ public class Options implements ActionListener {
 //		}
 		if(e.getSource() == button[2])
 		{
+			if(UpdateRow.getUpdateRowModule() == null)
+				UpdateRow.createUpdateRowModule().openWindow();
+		}
+		if(e.getSource() == button[3])
+		{
 			if(AddColumn.getAddColumnModule() == null)
 				AddColumn.createAddColumnModule().openWindow();
 		}
-		if(e.getSource() == button[3])
+		if(e.getSource() == button[4])
 		{
 			if(DeleteColumn.getDeleteColumnModule() == null)
 				DeleteColumn.createDeleteColumnModule().openWindow();;
