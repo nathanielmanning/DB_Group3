@@ -88,11 +88,11 @@ public class Options implements ActionListener {
 			if(AddRow.getAddRowModule() == null)
 				AddRow.createAddRowModule().openWindow();
 		}
-//		if(e.getSource() == button[1])
-//		{
-//			if(DeleteRow.getDeleteRowModule() == null)
-//				DeleteRow.createDeleteRowModule().openWindow();
-//		}
+		if(e.getSource() == button[1])
+		{
+			if(DeleteRow.getDeleteRowModule() == null)
+				DeleteRow.createDeleteRowModule().openWindow();
+		}
 		if(e.getSource() == button[2])
 		{
 			if(AddColumn.getAddColumnModule() == null)

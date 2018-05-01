@@ -140,7 +140,7 @@ public class AddRow implements ActionListener, WindowListener {
 				System.out.println("insert into " + Table.getTable().getName() + " (" + addCols + ") "+ "values" + " (" + values + ");");
 				DataBase.getDataBase()
 						.AddData("insert into " + Table.getTable().getName() + " (" + addCols + ") "+ "values" + " (" + values + ");") ;
-				Table.getTable().addRow();
+				Table.getTable().refresh();
 			} catch (Exception e1) {
 
 				e1.printStackTrace();
