@@ -1,3 +1,11 @@
+/**
+ * AddRow.java
+ * 
+ * Adds a new row to a table in the database
+ * 
+ * @author Nathaniel Manning
+ */
+
 package gui;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
@@ -21,12 +29,19 @@ public class AddRow implements ActionListener, WindowListener {
 	private JFrame frame;
 	private static AddRow addRow = null;
 
+	/*
+	 * returns the instance of Addrow.
+	 * If there wasn't an instance, it creates one.
+	 */
 	public static AddRow createAddRowModule() {
 		if (addRow == null)
 			addRow = new AddRow();
 		return addRow;
 	}
 
+	/*
+	 * returns the instance of AddRow
+	 */
 	public static AddRow getAddRowModule() {
 		return addRow;
 	}
@@ -35,21 +50,34 @@ public class AddRow implements ActionListener, WindowListener {
 
 	}
 
+	/*
+	 * closes the window by getting rid of the frame
+	 */
 	public void closeWindow() {
 		frame.dispose();
 		this.frame = null;
 		addRow = null;
 	}
 
+	/*
+	 * returns the frame for the window
+	 */
 	public JFrame getFrame() {
 		return frame;
 	}
 
+	/*
+	 * On call, creates the window and the layout for the window
+	 * to be displayed.
+	 */
 	public void openWindow() {
 		this.createFrame();
 		this.createLayout();
 	}
 
+	/*
+	 * creates the frame for the update row window
+	 */
 	private void createFrame() {
 		frame = new JFrame("ADD ROW");
 		frame.setSize(300, 300);
@@ -98,12 +126,19 @@ public class AddRow implements ActionListener, WindowListener {
 		button.addActionListener(this);
 	}
 
+	/**
+	 * Called after the user clicks submit
+	 * Gets input from the text fields, if the data type of the column for
+	 * a text field is some form of char, "'" is placed on either side.
+	 * A comma is placed after each value unless it is the very last value
+	 * being added, this is formatting for the JDBC statement.
+	 * Ignores text fields where no value was given.
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == button) {
 
 			try {
-//				String columns = Arrays.toString(Table.getTable().getColNamesFromDB()).replaceAll("\\[", "").replaceAll("\\]", "");
 				String values = "";
 				String addCols = "";
 				for(int i = 0; i < colNames.length; i++)
@@ -135,12 +170,10 @@ public class AddRow implements ActionListener, WindowListener {
 					}
 					
 				}
-//				values = values.replaceAll("\\s", ", ");
-//				addCols = addCols.replaceAll("\\s", ", ");
 				System.out.println("insert into " + Table.getTable().getName() + " (" + addCols + ") "+ "values" + " (" + values + ");");
 				DataBase.getDataBase()
 						.AddData("insert into " + Table.getTable().getName() + " (" + addCols + ") "+ "values" + " (" + values + ");") ;
-				Table.getTable().addRow();
+				Table.getTable().refresh();
 			} catch (Exception e1) {
 
 				e1.printStackTrace();
