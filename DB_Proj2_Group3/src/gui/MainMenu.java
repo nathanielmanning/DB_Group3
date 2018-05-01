@@ -6,10 +6,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import mySQLInterface.DataBase;
 
 public class MainMenu implements WindowListener, ActionListener{
 	private JFrame frame;
@@ -82,6 +85,12 @@ public class MainMenu implements WindowListener, ActionListener{
 	public void windowClosed(WindowEvent arg0) {
 		if(TableSelect.getSelectModule() != null)
 			TableSelect.getSelectModule().closeWindow();
+		try {
+			DataBase.getDataBase().closeConnection();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 	}
 
