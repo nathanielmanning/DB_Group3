@@ -163,7 +163,7 @@ public class Table implements ActionListener, WindowListener{
 		this.refreshWindow();
 	}
 	
-	public void addRow() {
+	public void refresh() {
 		this.refreshWindow();
 		
 	}
