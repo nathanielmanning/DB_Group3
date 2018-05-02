@@ -133,7 +133,7 @@ public class DeleteRow implements ActionListener, WindowListener {
 					System.out.println("delete from " + Table.getTable().getName() + " where " + condition.getText() + ";");
 					
 					DataBase.getDataBase()
-					.AddData("delete from " + Table.getTable().getName() + " where " + condition.getText()+ ";");
+					.AddData("delete from " + Table.getTable().getName() + "where " + condition.getText()+ ";");
 				}
 				else
 				{
