@@ -1,3 +1,7 @@
+/**
+ * @author Joshua Bartle
+ * Class for creating the main menu module
+ */
 package gui;
 
 import java.awt.Color;
@@ -6,15 +10,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+// implement action listener and windowlistener
 public class MainMenu implements WindowListener, ActionListener{
-	private JFrame frame;
-	private static MainMenu main = null;
 	
+	//instance variables
+	private JFrame frame;
+	private static MainMenu main = null; // the instance of the module mainmenu
+	
+	/**
+	 * Function for creating a single instance of the main menu model
+	 * @return, the instance of mainmenu
+	 */
 	public static MainMenu createMainMenuModule()
 	{
 		if(main == null)
@@ -22,29 +32,48 @@ public class MainMenu implements WindowListener, ActionListener{
 		return main;
 	}
 	
+	/**
+	 * Function for getting the instance of mainmenu
+	 * @return the instance of mainmenu
+	 */
 	public static MainMenu getMainMenuModule()
 	{
 		return MainMenu.main;
 	}
 	
+	/**
+	 * Function for closing the mainmenu module
+	 */
 	public void closeWindow()
 	{
-		frame.dispose();
+		frame.dispose(); //close the window
 		this.frame = null;
-		MainMenu.main = null;
+		MainMenu.main = null; // set instance of mainmenu to null
 	}
 	
+	/**
+	 * Function for getting the jframe instance
+	 * @return, the frame instance
+	 */
 	public JFrame getFrame()
 	{
 		return frame;
 	}
 	
+	/**
+	 * Function for opening the mainmenu module window
+	 */
 	public void openWindow()
 	{
+		// create the frame
 		this.createFrame();
+		// create the layout
 		this.createLayout();
 	}
 	
+	/**
+	 * Function for creating the frame
+	 */
 	private void createFrame()
 	{
 		frame = new JFrame("Main Menu");
@@ -58,16 +87,16 @@ public class MainMenu implements WindowListener, ActionListener{
 		frame.setLocation(600, 210);
 	}
 	
-
-	JPanel pane = new JPanel(new GridLayout(2,1));
-	JButton getTables = new JButton("Table List");
-	JButton customQuery = new JButton("Custom Query");
+	//instance variables
+	JPanel pane = new JPanel(new GridLayout(2,1)); // jpanel with 2x1 layout
+	JButton getTables = new JButton("Table List"); //get Tables button
+	JButton customQuery = new JButton("Custom Query"); // custom query button
 	private void createLayout()
 	{
 		this.getTables.setBackground(new Color(220, 220, 220));
 		this.customQuery.setBackground(new Color(220, 220, 220));
-		pane.add(this.getTables);
-		pane.add(this.customQuery);
+		pane.add(this.getTables); // add the gettables button
+		pane.add(this.customQuery); // add the custom query button
 		this.getTables.addActionListener(this);
 		this.customQuery.addActionListener(this);;
 	}
@@ -115,12 +144,16 @@ public class MainMenu implements WindowListener, ActionListener{
 		
 	}
 
+	/**
+	 * Action Function for when a button is clicked
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == getTables)
+		if(e.getSource() == getTables) // if get tables is clicked
 		{
-			if(TableSelect.getSelectModule() != null)
+			if(TableSelect.getSelectModule() != null) //if the module is open, close it
 				TableSelect.createSelectModule().closeWindow();
+			// open the module
 			TableSelect.createSelectModule().openWindow();
 		}
 	}
