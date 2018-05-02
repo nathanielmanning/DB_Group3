@@ -101,7 +101,7 @@ public class DeleteRow implements ActionListener, WindowListener {
 	* @param colNames: Names of all columns in the table.                      *
 	***************************************************************************/
 	int colCount = Table.getTable().getColCount();
-	JTextField[] textFields = new JTextField[Table.getTable().getColCount()];
+	JTextField condition;
 	String[] colNames = Table.getTable().getColNamesFromDB();
 	String[] colTypes = Table.getTable().getColTypeFromDB();
 	JPanel pane = new JPanel();
@@ -113,12 +113,9 @@ public class DeleteRow implements ActionListener, WindowListener {
 		con.fill = GridBagConstraints.HORIZONTAL;
 		con.ipady = 10;
 		con.ipadx = 100;
-		for(int i = 0; i < colCount; i++)
-		{
-			textFields[i] = new JTextField(colNames[i]);
-			con.gridy = i;
-			pane.add(textFields[i], con);
-		}
+		condition = new JTextField("Condition");
+		con.gridy = 0;
+		pane.add(condition, con);
 		con.gridx+= 1;
 		con.gridy+= 1;
 		pane.add(this.button, con);
@@ -131,36 +128,17 @@ public class DeleteRow implements ActionListener, WindowListener {
 		if (e.getSource() == button) {
 
 			try {
-				ArrayList<String> values = new ArrayList<String>();
-				ArrayList<String> pk = new ArrayList<String>();
-				for(int i = 0; i < colNames.length; i++)
+				if(condition.getText() != condition.getName())
 				{
-					if(Table.getTable().isPrimaryKey(i))
-					{
-						pk.add(colNames[i]);
-						if(colTypes[i].contains("char"))
-						{
-							values.add("'" + textFields[i].getText() + "'");
-						}
-						else
-						{
-							values.add(textFields[i].getText());
-						}
-					}
-				}
-				for(int i = 0; i < pk.size(); i++)
-				{
-					System.out.println("delete from " + Table.getTable().getName() + " where " + pk.get(i) + " = " + values.get(i) + ";");
-				}
-				for(int i = 0; i < pk.size(); i++)
-				{
+					System.out.println("delete from " + Table.getTable().getName() + " where " + condition.getText() + ";");
+					
 					DataBase.getDataBase()
-					.AddData("delete from " + Table.getTable().getName() + "where " + pk.get(i) + " = " + values.get(i) + ";");
+					.AddData("delete from " + Table.getTable().getName() + "where " + condition.getText()+ ";");
 				}
-				
-//				System.out.println("update " + Table.getTable().getName() + "set " + colName + " = " + value + " where " + pk + " = "   + ";");
-//				DataBase.getDataBase()
-//						.AddData("update " + Table.getTable().getName() + "set " + colName + " = " + value + " where " + Table.getTable() + ";") ;
+				else
+				{
+					System.out.println("Going to need a condition to do that!");
+				}
 				Table.getTable().refresh();
 			} catch (Exception e1) {
 

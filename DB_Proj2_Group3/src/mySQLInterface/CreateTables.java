@@ -12,9 +12,9 @@ public class CreateTables {
 	
 		DataBase.getDataBase().AddData("CREATE TABLE PLAYER_CHARACTER("+
 				"Player_Login		CHAR(15)	NOT NULL CHECK (LEN(Player_Login) >= 6 AND LEN(Player_Login) <= 15),"+
-				"Name			CHAR(15)	NOT NULL CHECK (LEN(Name) >= 1 AND LEN(Name) <= 15),"+
-				"Current_HP		INT		NOT NULL CHECK (Current_HP >= 0 AND Current_HP <= 100),"+
-				"Max_HP		INT		NOT NULL CHECK (Max_HP = 100),"+
+				"Name			CHAR(15)	NOT NULL CHECK (LEN(Name) >= 1 AND LEN(Name) <= 15), "+
+				"Current_HP		INT		NOT NULL CHECK (Current_HP >= 0 AND Current_HP <= 100), "+
+				"Max_HP		INT		NOT NULL CHECK (Max_HP = 100), "+
 				"Strength		INT		NOT NULL CHECK (Strength >= 0 AND Strength <= 100),"+
 				"Stamina		INT		NOT NULL CHECK (Stamina >= 0 AND Stamina <= 100),"+
 				"PRIMARY KEY(Name),"+
@@ -46,8 +46,8 @@ public class CreateTables {
 	
 		DataBase.getDataBase().AddData("CREATE TABLE ABILITY("+
 				"ID			INT		NOT NULL CHECK (ID >= 0 AND ID <= 1000),"+
-				"AttackOrBenefit		CHAR(7)	NOT NULL CHECK (AttackOrBenefit IN( ‘Attack’, ‘Benefit’)),"+
-				"StatTarget		CHAR(15)	NOT NULL CHECK (StatTarget IN (‘Health’, ‘Stamina’, ‘Strength’)),"+
+				"AttackOrBenefit		CHAR(7)	NOT NULL ,"+
+				"StatTarget		CHAR(15)	NOT NULL ,"+
 				"HitPoints		INT		NOT NULL CHECK (HitPoints >= 0 AND HitPoints <= 100),"+
 				"TimeToExecute	FLOAT(5,4)	NOT NULL CHECK (TimeToExecute >= 0 AND TimeToExecute <= 10),"+
 				"PRIMARY KEY(ID));");	
@@ -55,8 +55,8 @@ public class CreateTables {
 	
 		DataBase.getDataBase().AddData("CREATE TABLE WEAPON("+
 				"Item_ID		INT		NOT NULL CHECK (Item_ID >= 0 AND Item_ID <= 1000),"+
-				"Type			CHAR(15)	NOT NULL CHECK (Type IN(‘low_level’, ‘med_level’, ‘high_level’)),"+
-				"Stored			BOOL		NOT NULL,"+
+				"Type			CHAR(15)	NOT NULL ,"+
+				"Stored			BOOL		NOT NULL ,"+
 				"Hand			INT		NOT NULL CHECK (Hand >= 0 AND Hand <= 1),"+
 				"Ability_id		INT,		NOT NULL CHECK (Ability_id >= 0 AND Ability_id <= 1000),"+
 				"FOREIGN KEY(Item_ID) REFERENCES ITEM(ID),"+
@@ -65,10 +65,10 @@ public class CreateTables {
 	
 		DataBase.getDataBase().AddData("CREATE TABLE ARMOR("+
 				"Item_ID		INT		NOT NULL CHECK (Item_ID >= 0 AND Item_ID <= 1000),"+
-				"Type			CHAR(15)	NOT NULL CHECK (Type IN(‘low_level’, ‘med_level’, ‘high_level’)),"+
-				"Stored			BOOL		NOT NULL,"+
+				"Type			CHAR(15)	NOT NULL ,"+
+				"Stored			BOOL		NOT NULL ,"+
 				"Protection		INT		NOT NULL CHECK (Protection >= 0 AND Protection <= 1000),"+
-				"WornOn		CHAR(15)	CHECK (WornOn IN(‘body’, ‘head’, ‘feet’)),"+
+				"WornOn		CHAR(15)	,"+
 				"FOREIGN KEY(Item_ID) REFERENCES ITEM(ID));");
 	
 	
@@ -76,7 +76,7 @@ public class CreateTables {
 				"Item_ID		INT		NOT NULL CHECK (Item_ID >= 0 AND Item_ID <= 1000),"+
 				"Weight_Limit		INT		NOT NULL CHECK (Weight_Limit >= 0 AND Weight_Limit <= 100),"+
 				"Volume_Limit		INT		NOT NULL CHECK (Volume_Limit >= 0 AND Volume_Limit <= 100),"+
-				"Slots 			CHAR(15)	CHECK (Slots IN(‘hands’, ‘belts’, ‘back’)),"+
+				"Slots 			CHAR(15)	,"+
 				"FOREIGN KEY(Item_ID) REFERENCES ITEM(ID));");
 	
 	
@@ -90,7 +90,7 @@ public class CreateTables {
 		DataBase.getDataBase().AddData("CREATE TABLE LOCATION("+
 				"ID			INT		NOT NULL CHECK (ID >= 0 AND ID <= 1000),"+
 				"Size			FLOAT	(5,4)	NOT NULL,"+
-				"Type			CHAR(15)	NOT NULL CHECK (Type IN(‘forest’, ‘desert’, ‘snow’, ‘mountains’)),"+
+				"Type			CHAR(15)	NOT NULL ,"+
 				"PRIMARY KEY(ID));");
 	
 	
