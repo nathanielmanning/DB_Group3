@@ -78,8 +78,8 @@ public class Options implements ActionListener {
 	}
 	
 	// instance variables
-	JPanel pane = new JPanel(new GridLayout(6,1)); // jpanel with a 6x1 grid for options
-	JButton button[] = new JButton[6]; //jbuttons for options to be selected
+	JPanel pane = new JPanel(new GridLayout(5,1)); // jpanel with a 6x1 grid for options
+	JButton button[] = new JButton[5]; //jbuttons for options to be selected
 	
 	/**
 	 * Function for creating the buttons, the layout, and setting the text
@@ -101,8 +101,8 @@ public class Options implements ActionListener {
 		button[2].setText("UPDATE ROW");
 		button[3].setText("ADD COLUMN");
 		button[4].setText("DELETE COLUMN");
-		button[5].setText("ADD/REMOVE PRIMARY KEY");
-		button[6].setText("ADD/REMOVE FOREIGN KEY");
+//		button[5].setText("ADD/REMOVE PRIMARY KEY");
+//		button[6].setText("ADD/REMOVE FOREIGN KEY");
 	}
 
 	/**

@@ -1,3 +1,5 @@
+package gui;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -11,6 +13,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+
+import mySQLInterface.DataBase;
 
 /**************************************************
  * Updates certain items that are already in the  *
@@ -114,7 +118,12 @@ public class UpdateColumn implements ActionListener, WindowListener{
 	public void actionPerformed(ActionEvent e){
 		if(e.getSource() == button){
 			String query = "update " + Table.getTable().getName() + " set "+ t.getText() + " where " + t2.getText();
-			DataBase.getDataBase().AddData(query);
+			try {
+				DataBase.getDataBase().AddData(query);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			closeWindow();
 			//runQuery(query);
 			

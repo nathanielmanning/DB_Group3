@@ -1,9 +1,12 @@
+package gui;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -11,6 +14,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+
+import mySQLInterface.DataBase;
 
 /****************************************************
  * A window that allows the user to enter a custom  *
@@ -114,14 +119,16 @@ public class CustomQuery implements ActionListener, WindowListener{
 			frame.dispose();
 			//System.out.println(query);
 			if(query.contains("alter")||query.contains("ALTER")){
-				DataBase.getDataBase().addData(query);
+				DataBase.getDataBase().AddData(query);
 			}else
 			{
 				ResultSet rs = DataBase.getDataBase().retrieveData(query);
 				ArrayList<String> list = new ArrayList<String>();
+				int num = 0;
 				while(rs.next())
 				{
 					list.add(rs.getString(num));
+					num++;
 				}
 				String data[] = new String[list.size()];
 				for(int j = 0; j < data.length; j++)
@@ -135,7 +142,7 @@ public class CustomQuery implements ActionListener, WindowListener{
 				f.setVisible(true);
 				f.setLocation(600, 210);
 				f.setSize(480, 120);
-				JPane p = new JPane();
+				JPanel p = new JPanel();
 				for(int t =0; t<data.length; t++){
 					p.add(data[t]+"\t");
 				}
