@@ -1,3 +1,8 @@
+/**
+ * @author Joshua Bartle
+ * This class creates the module for Adding Columns and connects it to the DB
+ */
+
 package gui;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -10,11 +15,17 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import mySQLInterface.*;
 
+// implement action listener and window listener
 public class AddColumn implements ActionListener, WindowListener{
 	
+	// instance variable
 	private JFrame frame;
-	private static AddColumn addCol = null;
+	private static AddColumn addCol = null; // AddColumn instance
 	
+	/**
+	 * Creates a single instance of add column
+	 * @return AddColumn instance
+	 */
 	public static AddColumn createAddColumnModule()
 	{
 		if(AddColumn.addCol == null)	
@@ -22,33 +33,46 @@ public class AddColumn implements ActionListener, WindowListener{
 		return AddColumn.addCol;
 	}
 	
+	/**
+	 * get the instance of the column
+	 * @return the instance of AddColumn
+	 */
 	public static  AddColumn getAddColumnModule()
 	{
 		return AddColumn.addCol;
 	}
 	
-	private AddColumn(){
-		
-	}
-	
+	/**
+	 * Function for closing the window
+	 */
 	public void closeWindow()
 	{
-		frame.dispose();
+		frame.dispose(); // close the window
 		this.frame = null;
 		AddColumn.addCol = null;
 	}
-	
+
+	/**
+	 * Get the frame instance for the window
+	 * @return, the jframe
+	 */
 	public JFrame getFrame()
 	{
 		return frame;
 	}
 	
+	/**
+	 * Function called when opening the window for AddColumn
+	 */
 	public void openWindow()
 	{
-		this.createFrame();
-		this.createLayout();
+		this.createFrame(); // create the frame
+		this.createLayout(); // create the layout
 	}
 	
+	/**
+	 * Function for creating the jframe
+	 */
 	private void createFrame()
 	{
 		frame = new JFrame("ADD COLUMN");
@@ -62,18 +86,22 @@ public class AddColumn implements ActionListener, WindowListener{
 		frame.setLocation(600, 210);
 	}
 	
-	JTextField colName = new JTextField("COLUMN_NAME");
-	JTextField DefaultValue = new JTextField("DEFAULT_VALUE");
-	JTextField DataType = new JTextField("Data_Type");
+	// instance variable for the fields in the window
+	JTextField colName = new JTextField("COLUMN_NAME"); // column name text field
+	JTextField DefaultValue = new JTextField("DEFAULT_VALUE"); // default value (if any)
+	JTextField DataType = new JTextField("Data_Type"); // data type text field
 	JPanel pane = new JPanel(new GridLayout(2,2));
-	JButton button = new JButton("SUBMIT");
+	JButton button = new JButton("SUBMIT"); // submit button
 	
+	/**
+	 * Function for creating the layout for the panel within the frame
+	 */
 	private void createLayout()
 	{
-		pane.add(this.colName);
-		pane.add(this.DataType);
-		pane.add(this.DefaultValue);
-		pane.add(this.button);
+		pane.add(this.colName); // add the colName text field
+		pane.add(this.DataType); // add the data type text field
+		pane.add(this.DefaultValue); // add the default value text field
+		pane.add(this.button); // add the submit button
 		
 		button.addActionListener(this);
 	}
@@ -85,14 +113,18 @@ public class AddColumn implements ActionListener, WindowListener{
 			
 				try {
 					String command = "";
+					// if default value is the parameter or nothing, set value to null
 					if(this.DefaultValue.getText().equals("DEFAULT_VALUE") || this.DefaultValue.getText().equals(""))
 						command = "alter table " + Table.getTable().getName() + " add " + this.colName.getText() + " " + this.DataType.getText();
-					else
+					else //else set the value to the specified value
 					{
-						command = "alter table " + Table.getTable().getName() + " add " + this.colName.getText() + " " + this.DataType.getText() + " NOT NULL DEFAULT " + this.DefaultValue.getText();
+						if(this.DataType.getText().contains("char")) // if char or varchar
+							command = "alter table " + Table.getTable().getName() + " add " + this.colName.getText() + " " + this.DataType.getText() + " NOT NULL DEFAULT '" + this.DefaultValue.getText() + "'";
+						else // if integer
+							command = "alter table " + Table.getTable().getName() + " add " + this.colName.getText() + " " + this.DataType.getText() + " NOT NULL DEFAULT " + this.DefaultValue.getText();
 					}
-					DataBase.getDataBase().AddData(command);
-					Table.getTable().addColumn(colName.getText());
+					DataBase.getDataBase().AddData(command); // send the command to the DB
+					Table.getTable().addColumn(colName.getText()); // add the column to the table gui
 				} catch (Exception e1) {
 				
 					e1.printStackTrace();
@@ -104,20 +136,17 @@ public class AddColumn implements ActionListener, WindowListener{
 		}
 		
 	}
-	
-	private boolean checkTextFields()
-	{
-		
-		return true;
-	}
 
 	@Override
 	public void windowActivated(WindowEvent arg0) {
 	}
 
+	/**
+	 *Function for when the window closes with x button
+	 */
 	@Override
 	public void windowClosed(WindowEvent e) {
-		if(e.getWindow() == frame)
+		if(e.getWindow() == frame) // set AddColumn to null
 		{
 			AddColumn.addCol = null;
 		}

@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 /**
+ * 
  * Functions from JDBC basics on D2L
  * The retrieve data and prepared statement functions were modified slightly
  */

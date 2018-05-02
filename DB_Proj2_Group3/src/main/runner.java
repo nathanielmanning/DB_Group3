@@ -6,8 +6,10 @@ import mySQLInterface.DataBase;
 public class runner {
 	public static void main (String[] args) throws Exception
 	{
-		DataBase.getDataBase().setUpDatabaseConnection();
+		// set up DB connection
+		DataBase.getDataBase().setUpDatabaseConnection(); 
 		CreateTables.makeTables();
+		// open the main menu window
 		MainMenu.createMainMenuModule().openWindow();
 	}
 }
