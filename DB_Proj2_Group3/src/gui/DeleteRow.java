@@ -155,7 +155,7 @@ public class DeleteRow implements ActionListener, WindowListener {
 				for(int i = 0; i < pk.size(); i++)
 				{
 					DataBase.getDataBase()
-					.AddData("delete from " + Table.getTable().getName() + "where " + pk.get(i) + " = " + values.get(i) + ";");
+					.AddData("delete from " + Table.getTable().getName() + " where " + pk.get(i) + " = " + values.get(i) + ";");
 				}
 				
 //				System.out.println("update " + Table.getTable().getName() + "set " + colName + " = " + value + " where " + pk + " = "   + ";");

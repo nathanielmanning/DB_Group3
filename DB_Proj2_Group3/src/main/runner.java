@@ -8,7 +8,7 @@ public class runner {
 	{
 		// set up DB connection
 		DataBase.getDataBase().setUpDatabaseConnection(); 
-		CreateTables.makeTables();
+		//CreateTables.makeTables();
 		// open the main menu window
 		MainMenu.createMainMenuModule().openWindow();
 	}
