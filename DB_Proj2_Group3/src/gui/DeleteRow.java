@@ -6,18 +6,12 @@
  * @author Nathaniel Manning
  */
 package gui;
-import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.util.ArrayList;
-import java.util.Arrays;
-
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -94,16 +88,8 @@ public class DeleteRow implements ActionListener, WindowListener {
 	* Creates the layout by first creating the text fields and adds the name   *
 	* of the column where the value will be stored.                            *
 	* Then, adds the text fields to the pane after they are created.           *
-	*                                                                          *
-	* @param colCount: The total count of columns in the table.                *
-	* @param textFields: An array of all text fields, the size is              *
-	*              determined by the number of columns in the table.           *
-	* @param colNames: Names of all columns in the table.                      *
 	***************************************************************************/
-	int colCount = Table.getTable().getColCount();
 	JTextField condition;
-	String[] colNames = Table.getTable().getColNamesFromDB();
-	String[] colTypes = Table.getTable().getColTypeFromDB();
 	JPanel pane = new JPanel();
 	GridBagConstraints con = new GridBagConstraints();
 	JButton button = new JButton("SUBMIT");
@@ -149,11 +135,6 @@ public class DeleteRow implements ActionListener, WindowListener {
 				this.closeWindow();
 		}
 
-	}
-
-	private boolean checkTextFields() {
-
-		return true;
 	}
 
 	@Override
