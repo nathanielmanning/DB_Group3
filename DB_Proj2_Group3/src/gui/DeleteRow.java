@@ -109,6 +109,7 @@ public class DeleteRow implements ActionListener, WindowListener {
 		button.addActionListener(this);
 	}
 
+	//when called, deletes a row based on some condition it is given
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == button) {

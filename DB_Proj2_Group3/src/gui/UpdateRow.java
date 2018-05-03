@@ -1,3 +1,6 @@
+/*
+ * @author Nathaniel Manning
+ */
 package gui;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
@@ -111,6 +114,7 @@ public class UpdateRow implements ActionListener, WindowListener {
 		for(int i = 0; i < colCount; i++)
 		{
 			textFields[i] = new JTextField(colNames[i]);
+			textFields[i].setName(colNames[i]);
 			con.gridy = i;
 			pane.add(textFields[i], con);
 		}
@@ -180,7 +184,6 @@ public class UpdateRow implements ActionListener, WindowListener {
 						}
 						changes.add(colNames[i]);
 					}
-					
 				}
 				for(int i = 0; i < changes.size(); i++)
 				{
@@ -191,7 +194,7 @@ public class UpdateRow implements ActionListener, WindowListener {
 				for(int i = 0; i < changes.size(); i++)
 				{
 					DataBase.getDataBase()
-					.AddData("update " + Table.getTable().getName() + "set " + changes.get(i) + " = " + values.get(i) + " where " + condition.getText() + ";") ;
+					.AddData("update " + Table.getTable().getName() + " set " + changes.get(i) + " = " + values.get(i) + " where " + condition.getText() + ";") ;
 				}
 				Table.getTable().refresh();
 			} catch (Exception e1) {

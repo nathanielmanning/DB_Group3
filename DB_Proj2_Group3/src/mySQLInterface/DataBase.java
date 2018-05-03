@@ -52,7 +52,7 @@ public class DataBase{
    /**
     * You MUST change these values based on the DB you are assigned to work with.
     */
-    public static final String DB_LOCATION = "jdbc:mysql://db.cs.ship.edu:3306/csc371-03";
+    public static final String DB_LOCATION = "jdbc:mysql://db.cs.ship.edu:3306/test";
     public static final String LOGIN_NAME = "csc371-03";
     public static final String PASSWORD = "Password03";
     // Make sure and use the java.sql imports.
