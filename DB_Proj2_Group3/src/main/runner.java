@@ -8,6 +8,9 @@ public class runner {
 	{
 		// set up DB connection
 		DataBase.getDataBase().setUpDatabaseConnection(); 
+		DataBase.getDataBase().AddData("drop database test;");
+		DataBase.getDataBase().AddData("create database test;");
+		DataBase.getDataBase().AddData("use test;");
 		CreateTables.makeTables();
 		// open the main menu window
 		MainMenu.createMainMenuModule().openWindow();
